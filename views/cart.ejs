@@ -1,0 +1,119 @@
+<h1 class="pb-4">Cart Items</h1>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Cart</li>
+    </ol>
+</nav>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr class="text-center">
+                            <th>Products</th>
+                            <th>Title</th>
+                            <th>Size</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+
+                    <tbody class="text-center">
+                        <tr>
+                            <td><img src="/img/product_13.png" width="75px" alt=""
+                                    class="img-fluid carticon-product-icon"></td>
+                            <td class="product-title">Cool Jacket</td>
+                            <td class="product-size">
+                                <select class="form-select">
+                                    <option value="XS">XS</option>
+                                    <option value="S">S</option>
+                                    <option value="M">M</option>
+                                    <option value="L" selected>L</option>
+                                    <option value="XL">XL</option>
+                                    <option value="XXL">XXL</option>
+                                    <option value="XXXL">XXXL</option>
+                                </select>
+                            </td>
+
+                            <td>199K</td>
+                            <td><input type="number" class="quantity-input" value="1" min="1" class="form-control"></td>
+                            <td>399K</td>
+                            <td><button class="btn btn-danger" style="width: 75px;">Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td><img src="/img/product_33.png" width="75px" alt=""
+                                    class="img-fluid carticon-product-icon"></td>
+                            <td class="product-title">Cute Outfit</td>
+                            <td class="product-size">
+                                <select class="form-select">
+                                    <option value="XS">XS</option>
+                                    <option value="S">S</option>
+                                    <option value="M" selected>M</option>
+                                    <option value="L">L</option>
+                                    <option value="XL">XL</option>
+                                    <option value="XXL">XXL</option>
+                                    <option value="XXXL">XXXL</option>
+                                </select>
+                            </td>
+                            <td>199K</td>
+                            <td><input type="number" class="quantity-input" value="1" min="1" class="form-control"></td>
+                            <td>399K</td>
+                            <td><button class="btn btn-danger" style="width: 75px;">Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td><img src="/img/product_11.png" width="75px" alt=""
+                                    class="img-fluid carticon-product-icon"></td>
+                            <td class="product-title">Cute Outfit</td>
+                            <td class="product-size">
+                                <select class="form-select">
+                                    <option value="XS">XS</option>
+                                    <option value="S">S</option>
+                                    <option value="M" selected>M</option>
+                                    <option value="L">L</option>
+                                    <option value="XL">XL</option>
+                                    <option value="XXL">XXL</option>
+                                    <option value="XXXL">XXXL</option>
+                                </select>
+                            </td>
+                            <td>199K</td>
+                            <td><input type="number" class="quantity-input" value="1" min="1" class="form-control"></td>
+                            <td>399K</td>
+                            <td><button class="btn btn-danger" style="width: 75px;">Delete</button></td>
+                        </tr>
+                    </tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-4 offset-md-8">
+            <table class="table">
+                <tr>
+                    <th>Subtotal</th>
+                    <td id="totalAmount">597K</td>
+                </tr>
+                <tr>
+                    <th>Shipping Fee</th>
+                    <td>Free</td>
+                </tr>
+                <tr>
+                    <th>Total</th>
+                    <td id="totalAmount">597K</td>
+                </tr>
+            </table>
+            <div class="d-grid">
+                <button class="btn btn-dark btn-lg">PROCEED TO CHECKOUT</button>
+            </div>
+        </div>
+    </div>
+
+</div>
