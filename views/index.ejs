@@ -1,0 +1,372 @@
+<!-- Hero Start -->
+
+<div class="row flex-lg-row-reverse align-items-center g-5 py-4 mb-4">
+	<div class="col-12 col-lg-6">
+		<img
+			src="/img/hero-image.png"
+			width="607"
+			height="510"
+			class="d-block mx-lg-auto img-fluid"
+			loading="lazy"
+			alt="hero-image"
+		/>
+	</div>
+
+	<div class="col-12 col-lg-6">
+		<h1 class="display-5 fw-bold mb-3">ELEVATE YOUR STYLE WITH US</h1>
+		<p class="lead">
+			Explore our new collections to recreate your own new style, show it
+			to the world!
+		</p>
+
+		<div class="d-grid gap-2 d-md-flex justfy-content-md-start">
+			<a
+				href="/explore-latest"
+				class="btn btn-primary btn-dark btn-lg px-4 me-md-2"
+				>Explore Latest</a
+			>
+			<a
+				href="/explore-random"
+				class="btn btn-outline-secondary btn-lg px-4 me-md-2"
+				>Explore Us</a
+			>
+		</div>
+	</div>
+</div>
+
+<!-- Hero End -->
+
+<!-- Categories Start -->
+
+<div class="row row-cols-2 row-cols-lg-6 g-2 g-lg-3 py-4">
+	<% if(categories !='' ) { %> <% categories.forEach(function(category,
+	index){ %>
+	<a
+		href="/categories/<%- category.name %>"
+		class="col text-center category-link"
+	>
+		<div class="category_img shadow">
+			<img
+				src="img/<%- category.image %>"
+				alt="<%- category.name %>"
+				loading="lazy"
+			/>
+		</div>
+		<div class="pt-1"><%- category.name %></div>
+	</a>
+	<% }) %> <% } %>
+
+	<a href="/categories" class="col text-center category-link">
+		<div class="category_img shadow">
+			<img src="img/man.jpg" alt="man" loading="lazy" />
+		</div>
+		<div class="pt-1">View All</div>
+	</a>
+</div>
+
+<!-- Categories End -->
+
+<!-- Latest Start -->
+
+<section class="pb-4 pt-4">
+	<div class="d-flex mb-2 align-items-center">
+		<h2>Lastest Collection</h2>
+		<a href="explore-latest" class="ms-auto">View More</a>
+	</div>
+
+	<div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+		<% if(clothes !='' ) { %> <% clothes.latest.forEach(function(product,
+		index){ %>
+		<a
+			href="/product/<%= product._id %>"
+			class="col text-center category-link"
+		>
+			<div class="card border-0">
+				<div class="position-relative">
+					<img
+						src="img/<%= product.image %>"
+						class="card-img-top rounded img-fluid"
+						alt="<%= product.id %>"
+						loading="lazy"
+					/>
+					<div class="position-absolute top-0 start-0">
+						<span class="badge bg-info">
+							<%= product.category %>
+						</span>
+					</div>
+					<div class="position-absolute bottom-0 end-0 p-2">
+						<span class="badge bg-secondary">XS-XXXL</span>
+					</div>
+					<button
+						class="btn btn-link btn-heart btn-lg position-absolute top-0 end-0 p-2"
+						aria-label="Add to wishlist"
+						data-product-id="<%= product._id %>"
+					>
+						<i class="bi bi-heart"></i>
+					</button>
+				</div>
+				<div class="card-body">
+					<h5 class="card-title"><%= product.name %></h5>
+					<div
+						class="d-flex justify-content-center gap-2 align-items-center"
+					>
+						<% if(product.old_price) { %>
+						<span class="text-muted"
+							><del> <%= product.old_price %>K </del></span
+						>
+						<% } %>
+						<span class="text-dark fs-4 fw-bold">
+							<%= product.new_price %>K
+						</span>
+					</div>
+					<div class="mt-2">
+						<% var rate=4; %> <% var maxRate=5; %> <% for (var i=0;
+						i < maxRate; i++) { %> <% if (i < rate) { %>
+						<i class="bi bi-star-fill text-warning"></i>
+						<% } else { %>
+						<i class="bi bi-star text-warning"></i>
+						<% } %> <% } %>
+						<span>(<%= rate %>/5)</span>
+					</div>
+				</div>
+			</div>
+		</a>
+
+		<% }) %> <% } %>
+	</div>
+</section>
+
+<!-- Latest End -->
+
+<!-- Man Start -->
+
+<section class="pb-4 pt-4">
+	<div class="d-flex mb-2 align-items-center">
+		<h2>Man Collection</h2>
+		<a href="/categories/Men" class="ms-auto">View More</a>
+	</div>
+
+	<div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+		<% if(typeof clothes.men !=='undefined' && clothes.men.length> 0) { %>
+		<% clothes.men.forEach(function(product, index){ %>
+		<a
+			href="/product/<%= product._id %>"
+			class="col text-center category-link"
+		>
+			<div class="card border-0">
+				<div class="position-relative">
+					<img
+						src="img/<%= product.image %>"
+						class="card-img-top rounded img-fluid"
+						alt="<%= product.id %>"
+						loading="lazy"
+					/>
+					<div class="position-absolute top-0 start-0">
+						<span class="badge bg-info">
+							<%= product.category %>
+						</span>
+					</div>
+					<div class="position-absolute bottom-0 end-0 p-2">
+						<span class="badge bg-secondary">XS-XXXL</span>
+					</div>
+				</div>
+				<div class="card-body">
+					<h5 class="card-title"><%= product.name %></h5>
+					<div
+						class="d-flex justify-content-center gap-2 align-items-center"
+					>
+						<% if(product.old_price) { %>
+						<span class="text-muted"
+							><del> <%= product.old_price %>K </del></span
+						>
+						<% } %>
+						<span class="text-dark fs-4 fw-bold">
+							<%= product.new_price %>K
+						</span>
+					</div>
+					<div class="mt-2">
+						<% var rate=4; %> <% var maxRate=5; %> <% for (var i=0;
+						i < maxRate; i++) { %> <% if (i < rate) { %>
+						<i class="bi bi-star-fill text-warning"></i>
+						<% } else { %>
+						<i class="bi bi-star text-warning"></i>
+						<% } %> <% } %>
+						<span>(<%= rate %>/5)</span>
+					</div>
+				</div>
+			</div>
+		</a>
+		<% }) %> <% } else { %>
+		<p>No Item Found.</p>
+		<% } %>
+	</div>
+</section>
+
+<!-- Man End -->
+
+<!-- Woman Start -->
+
+<section class="pb-4 pt-4">
+	<div class="d-flex mb-2 align-items-center">
+		<h2>Woman Collection</h2>
+		<a href="/categories/Women" class="ms-auto">View More</a>
+	</div>
+
+	<div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+		<% if(typeof clothes.women !=='undefined' && clothes.women.length> 0) {
+		%> <% clothes.women.forEach(function(product, index){ %>
+		<a
+			href="/product/<%= product._id %>"
+			class="col text-center category-link"
+		>
+			<div class="card border-0">
+				<div class="position-relative">
+					<img
+						src="img/<%= product.image %>"
+						class="card-img-top rounded img-fluid"
+						alt="<%= product.id %>"
+						loading="lazy"
+					/>
+					<div class="position-absolute top-0 start-0">
+						<span class="badge bg-info">
+							<%= product.category %>
+						</span>
+					</div>
+					<div class="position-absolute bottom-0 end-0 p-2">
+						<span class="badge bg-secondary">XS-XXXL</span>
+					</div>
+				</div>
+				<div class="card-body">
+					<h5 class="card-title"><%= product.name %></h5>
+					<div
+						class="d-flex justify-content-center gap-2 align-items-center"
+					>
+						<% if(product.old_price) { %>
+						<span class="text-muted"
+							><del> <%= product.old_price %>K </del></span
+						>
+						<% } %>
+						<span class="text-dark fs-4 fw-bold">
+							<%= product.new_price %>K
+						</span>
+					</div>
+					<div class="mt-2">
+						<% var rate=4; %> <% var maxRate=5; %> <% for (var i=0;
+						i < maxRate; i++) { %> <% if (i < rate) { %>
+						<i class="bi bi-star-fill text-warning"></i>
+						<% } else { %>
+						<i class="bi bi-star text-warning"></i>
+						<% } %> <% } %>
+						<span>(<%= rate %>/5)</span>
+					</div>
+				</div>
+			</div>
+		</a>
+		<% }) %> <% } else { %>
+		<p>No Item Found.</p>
+		<% } %>
+	</div>
+</section>
+
+<!-- Woman End -->
+
+<!-- Kids Start -->
+
+<section class="pb-4 pt-4">
+	<div class="d-flex mb-2 align-items-center">
+		<h2>Kid Collection</h2>
+		<a href="/categories/Kids" class="ms-auto">View More</a>
+	</div>
+
+	<div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+		<% if(typeof clothes.kids !=='undefined' && clothes.kids.length> 0) { %>
+		<% clothes.kids.forEach(function(product, index){ %>
+		<a
+			href="/product/<%= product.id %>"
+			class="col text-center category-link"
+		>
+			<div class="category_img category_img--large shadow">
+				<img
+					src="img/<%= product.image %>"
+					class="rounded img-fluid"
+					alt="<%= product.id %>"
+					loading="lazy"
+				/>
+			</div>
+			<div class="pt-1"><%= product.name %></div>
+		</a>
+		<% }) %> <% } else { %>
+		<p>No Item Found.</p>
+		<% } %>
+	</div>
+</section>
+
+<!-- Kids End -->
+
+<!-- Subscribe Start -->
+
+<section class="px-4 py-5 my-5 text-center">
+	<div
+		style="
+			max-width: 600px;
+			margin: 0 auto;
+			padding: 20px;
+			border: 1px solid #ccc;
+			border-radius: 10px;
+		"
+	>
+		<img
+			src="/img/subcribe-image.png"
+			class="d-block mx-auto mb-4 img-fluid"
+			alt="Subcribe Letter"
+			width="566"
+			height="208"
+			loading="lazy"
+		/>
+		<h1 class="display-5 fw-bold text-center">
+			Get Exclusive Offers On Your Email
+		</h1>
+		<div class="col-lg-6 mx-auto">
+			<p class="lead text-center mb-4">
+				Subscribe to our newsletter and stay updated
+			</p>
+			<div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+				<a href="/submit-email" class="btn btn-primary btn-dark btn-lg"
+					>SUBSCRIBE</a
+				>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Subscribe End -->
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		const heartButtons = document.querySelectorAll(".btn-heart");
+		heartButtons.forEach(function (button) {
+			button.addEventListener("click", function (event) {
+				event.preventDefault();
+				const productId = button.dataset.productId;
+				addToWishlist(productId);
+			});
+		});
+
+		function addToWishlist(productId) {
+			fetch("/add-to-wishlist", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ productId: productId }),
+			})
+				.then((response) => response.json())
+				.then((data) => {
+					console.log(data.message);
+				})
+				.catch((error) => {
+					console.error("Error:", error);
+				});
+		}
+	});
+</script>
