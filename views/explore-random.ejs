@@ -1,0 +1,57 @@
+<h1 class="pb-4">Explore Us</h1>
+
+
+<div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3 mb-4">
+
+    <% products.forEach(product=> { %>
+        <a href="/product/<%= product._id %>" class="col text-center category-link">
+            <div class="card border-0">
+                <div class="position-relative">
+                    <img src="img/<%= product.image %>" class="card-img-top rounded img-fluid" alt="<%= product.id %>"
+                        loading="lazy">
+                    <div class="position-absolute top-0 start-0">
+                        <span class="badge bg-info">
+                            <%= product.category %>
+                        </span>
+                    </div>
+                    <div class="position-absolute bottom-0 end-0 p-2">
+                        <span class="badge bg-secondary">XS-XXXL</span>
+                    </div>
+                    <button class="btn btn-link btn-heart btn-lg position-absolute top-0 end-0 p-2"
+                        data-product-id="<%= product._id %>" aria-label="Add to wishlist">
+                        <i class="bi <%= product.isInWishlist ? 'bi-heart-fill' : 'bi-heart' %>"></i>
+                    </button>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%= product.name %>
+                    </h5>
+                    <div class="d-flex justify-content-center gap-2 align-items-center">
+                        <% if(product.old_price) { %>
+                            <span class="text-muted"><del>
+                                    <%= product.old_price %>K
+                                </del></span>
+                            <% } %>
+                                <span class="text-dark fs-4 fw-bold">
+                                    <%= product.new_price %>K
+                                </span>
+                    </div>
+                    <div class="mt-2">
+                        <% var rate=4; %>
+                            <% var maxRate=5; %>
+                                <% for (var i=0; i < maxRate; i++) { %>
+                                    <% if (i < rate) { %>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <% } else { %>
+                                            <i class="bi bi-star text-warning"></i>
+                                            <% } %>
+                                                <% } %>
+                                                    <span>(<%= rate %>/5)</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <% }) %>
+
+
+</div>
