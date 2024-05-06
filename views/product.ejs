@@ -1,0 +1,170 @@
+<% if(product !=null) { %>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><%- product.name %></li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <img src="/img/<%- product.image %>" class="img-fluid sticky-top" alt="<%- product.name %>" loading="lazy">
+        </div>
+
+        <div class="col-12 col-md-6">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h1><%- product.name %></h1>
+                        <button class="btn btn-link btn-heart btn-lg" data-product-id="<%- product._id %>"
+                            aria-label="Add to wishlist">
+                            <i class="bi <%= product.isInWishlist ? 'bi-heart-fill' : 'bi-heart' %>"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="col-12 mb-4"><i class="bi bi-tag"></i> <%- product.category %></div>
+
+                <div class="col-12 mb-4">
+                    <h4>Description</h4>
+                    <%- product.description %>
+                </div>
+
+                <div class="d-flex fs-5 gap-2">
+                    <% if(product.new_price) { %>
+                        <p>Price: </p>
+                        <span class="text-dark fw-bold">
+                            <%= product.new_price %>K
+                        </span>
+                        <% } %>
+                            <span class="text-muted">
+                                <del>
+                                    <%= product.old_price %>K
+                                </del>
+                            </span>
+                </div>
+
+                <div class="mt-2 mb-2">
+                    <% var rate=4; %>
+                        <% var maxRate=5; %>
+                            <% for (var i=0; i < maxRate; i++) { %>
+                                <% if (i < rate) { %>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <% } else { %>
+                                        <i class="bi bi-star text-warning"></i>
+                                        <% } %>
+                                            <% } %>
+                                                <span>(<%= rate %>/5)</span>
+                </div>
+
+                <div class="col-12 mb-4">
+                    <label for="sizeSelect" class="form-label">Select Size:</label>
+                    <div class="custom-select rounded" id="sizeSelect">
+                        <div class="custom-option" data-value="XS">XS</div>
+                        <div class="custom-option" data-value="S">S</div>
+                        <div class="custom-option" data-value="M">M</div>
+                        <div class="custom-option" data-value="L">L</div>
+                        <div class="custom-option" data-value="XL">XL</div>
+                        <div class="custom-option" data-value="XXL">XXL</div>
+                        <div class="custom-option" data-value="XXXL">XXXL</div>
+                    </div>
+                </div>
+
+                <div class="col-12 text-center">
+                    <button class="btn btn-dark" id="addToCartBtn" style="
+                        display: block;
+                        width: 100%;
+                        font-size: 20px;
+                    "><i class="bi bi-bag"></i> Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <% } else { %>
+        <p>No Item Found.</p>
+        <% } %>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const wishlistButtons = document.querySelectorAll('.btn-heart');
+
+                    wishlistButtons.forEach(button => {
+                        button.addEventListener('click', function (event) {
+                            event.stopPropagation();  // Hentikan propagasi event
+                            const productId = this.dataset.productId;
+                            toggleWishlist(productId, this);
+                        });
+                    });
+
+                    function toggleWishlist(productId, buttonElement) {
+                        fetch(`/wishlist/toggle/${productId}`, { method: 'POST' })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    // Toggle heart icon class based on whether the product is in the wishlist or not
+                                    const icon = buttonElement.querySelector('.bi');
+                                    if (data.isInWishlist) {
+                                        icon.classList.add('bi-heart-fill');
+                                        icon.classList.remove('bi-heart');
+                                    } else {
+                                        icon.classList.add('bi-heart');
+                                        icon.classList.remove('bi-heart-fill');
+                                    }
+                                    alert('Wishlist updated!');
+                                }
+                            })
+                            .catch(error => console.error('Error updating wishlist:', error));
+                    }
+                });
+
+                document.addEventListener('DOMContentLoaded', function () {
+                    const addToCartBtn = document.getElementById('addToCartBtn');
+                    const sizeSelect = document.getElementById('sizeSelect');
+
+                    addToCartBtn.addEventListener('click', function () {
+                        const selectedSize = sizeSelect.querySelector('.active').getAttribute('data-value');
+                        const quantity = document.querySelector('.quantity-input').value;
+                        const productId = '<%= product._id %>';
+
+                        addToCart(productId, selectedSize, quantity);
+                    });
+
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const addToCartBtn = document.getElementById('addToCartBtn'); // Pastikan ID ini ada di tombol
+                        const productSelect = document.getElementById('productSelect'); // Dropdown untuk memilih produk
+                        const sizeSelect = document.getElementById('sizeSelect'); // Dropdown untuk memilih ukuran
+                        const quantityInput = document.getElementById('quantityInput'); // Input untuk jumlah
+
+                        addToCartBtn.addEventListener('click', function () {
+                            const productId = productSelect.value;
+                            const selectedSize = sizeSelect.value;
+                            const quantity = quantityInput.value;
+
+                            addToCart(productId, selectedSize, quantity);
+                        });
+
+                        function addToCart(productId, size, quantity) {
+                            fetch('/cart/add', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({ productId, size, quantity })
+                            })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        alert('Product added to cart!');
+                                    } else {
+                                        alert('Failed to add product to cart.');
+                                    }
+                                })
+                                .catch(error => console.error('Error adding product to cart:', error));
+                        }
+                    });
+                });
+
+
+
+            </script>
